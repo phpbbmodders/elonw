@@ -10,9 +10,13 @@
 
 	'use strict';
 
-	var removeSubdomain = function (a,b){return a.split(".").slice(-(b||2)).join(".")};
+	function siteHostname(hostname)
+	{
+		hostname = hostname.toLowerCase().replace(/\.$/, '');
+		return window.tldts.getDomain(hostname, { allowPrivateDomains: true }) || hostname;
+	}
 
-	var source=removeSubdomain(location.hostname);
+	var source = siteHostname(location.hostname);
 	var IgnoreClasses = [
 		'posterip',
 		'share-button',
@@ -29,7 +33,7 @@
 	$(function() {
 
 		$('a[href^="http://"], a[href^="https://"], a[href^="ftp://"]').filter(function(){
-			if ($(this).parents($("div")).is('.content, .signature') && this.hostname&&removeSubdomain(this.hostname)!==source)
+			if ($(this).parents($("div")).is('.content, .signature') && this.hostname && siteHostname(this.hostname) !== source)
 			{
 				$(this).attr("title", elonw_title).addClass("elonw");
 			}
@@ -51,7 +55,7 @@
 				NotInClass = false;
 			}
 			var href = $(this).attr('href');
-			if(this.hostname && removeSubdomain(this.hostname)!==source && NotInClass)
+			if (this.hostname && siteHostname(this.hostname) !== source && NotInClass)
 			{
 				window.open(href, '_blank', 'noreferrer, noopener');
 				return false;
@@ -60,7 +64,7 @@
 
 		$('.forum_link').each(function(){
 			var href = $(this).attr('href');
-			if (this.hostname && removeSubdomain(this.hostname)!==source)
+			if (this.hostname && siteHostname(this.hostname) !== source)
 			{
 				$(this).attr("onclick","window.open(this.href);return false;").attr("rel", "nofollow, noreferrer, noopener");
 			}

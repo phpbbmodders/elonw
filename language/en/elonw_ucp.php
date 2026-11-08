@@ -1,12 +1,13 @@
 <?php
 /**
-*
-* External Links Open in New Window [English]
-*
-* @copyright (c) 2014 Rich McGirr
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * External Links Open in New Window extension for the phpBB Forum Software package
+ *
+ * @copyright (c) 2014 Rich McGirr
+ * @copyright (c) 2026, phpBB Modders, https://www.phpbbmodders.com/
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 /**
 * DO NOT CHANGE

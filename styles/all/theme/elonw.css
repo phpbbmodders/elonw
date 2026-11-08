@@ -1,12 +1,27 @@
-a.elonw:after {  
+/* New-window icon after marked links; decorative, so it has no spoken text */
+a.elonw:after {
 	font-family: FontAwesome;
 	content: "\f08e";
+	content: "\f08e" / "";
 	left: 3px;
 	padding-right: 3px;
 	position: relative;
 	text-align: center;
 	vertical-align: middle;
 	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;	
+	-moz-osx-font-smoothing: grayscale;
 	pointer-events: none;
+}
+
+/* Text for screen readers only; not every style has an sr-only class */
+.elonw-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
 }

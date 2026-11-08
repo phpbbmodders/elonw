@@ -1,13 +1,15 @@
 <?php
 /**
-*
-* @package External Links Open in New Window
-* @copyright (c) 2014 RMcGirr83
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
-*
-*/
+ *
+ * External Links Open in New Window extension for the phpBB Forum Software package
+ *
+ * @copyright (c) 2014 RMcGirr83
+ * @copyright (c) 2026, phpBB Modders, https://www.phpbbmodders.com/
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
-namespace rmcgirr83\elonw\event;
+namespace phpbbmodders\elonw\event;
 
 use phpbb\language\language;
 use phpbb\request\request;
@@ -40,7 +42,7 @@ class listener implements EventSubscriberInterface
 	* @param request 	$request	Request object
 	* @param template 	$template	Template object
 	* @param user 		$user		User object
-	* @return \rmcgirr83\elonw\event\listener
+	* @return \phpbbmodders\elonw\event\listener
 	* @access public
 	*/
 	public function __construct(language $language, request $request, template $template, user $user)
@@ -51,10 +53,9 @@ class listener implements EventSubscriberInterface
 		$this->user = $user;
 	}
 
-	static public function getSubscribedEvents()
+	public static function getSubscribedEvents()
 	{
 		return [
-			'core.acp_extensions_run_action_after'	=>	'acp_extensions_run_action_after',
 			'core.user_setup_after'					=>	'user_setup_after',
 			'core.page_header' 						=>	'page_header',
 			'core.ucp_prefs_personal_data'			=>	'ucp_prefs_get_data',
@@ -62,36 +63,23 @@ class listener implements EventSubscriberInterface
 		];
 	}
 
-	/* Display additional metadate in extension details
+	/**
+	* Load the extension's language strings
 	*
-	* @param $event			event object
-	* @param return null
-	* @access public
-	*/
-	public function acp_extensions_run_action_after($event)
-	{
-		if ($event['ext_name'] == 'rmcgirr83/elonw' && $event['action'] == 'details')
-		{
-			$this->language->add_lang('common', $event['ext_name']);
-			$this->template->assign_var('S_BUY_ME_A_BEER_ELONW', true);
-		}
-	}
-
-	/* Add the lang vars to the users language
-	*
-	* @param $event			event object
-	* @param return null
+	* @param \phpbb\event\data $event The event object
+	* @return void
 	* @access public
 	*/
 	public function user_setup_after($event)
 	{
-		$this->language->add_lang('common', 'rmcgirr83/elonw');
+		$this->language->add_lang('common', 'phpbbmodders/elonw');
 	}
 
-	/* Add the css file
+	/**
+	* Tell the templates whether the user wants external links in a new window
 	*
-	* @param $event			event object
-	* @param return null
+	* @param \phpbb\event\data $event The event object
+	* @return void
 	* @access public
 	*/
 	public function page_header($event)
@@ -104,21 +92,22 @@ class listener implements EventSubscriberInterface
 	/**
 	* Get user's option and display it in UCP Prefs View page
 	*
-	* @param object $event The event object
-	* @return null
+	* @param \phpbb\event\data $event The event object
+	* @return void
 	* @access public
 	*/
 	public function ucp_prefs_get_data($event)
 	{
-		// Request the user option vars and add them to the data array
+		// Request the user option and add it to the data array. The column is
+		// a boolean, so anything other than 0 is stored as 1.
 		$event['data'] = array_merge($event['data'], [
-			'elonw'	=> $this->request->variable('elonw', (int) $this->user->data['user_elonw']),
+			'elonw'	=> $this->request->variable('elonw', (int) $this->user->data['user_elonw']) ? 1 : 0,
 		]);
 
 		// Output the data vars to the template (except on form submit)
 		if (!$event['submit'])
 		{
-			$this->language->add_lang('elonw_ucp', 'rmcgirr83/elonw');
+			$this->language->add_lang('elonw_ucp', 'phpbbmodders/elonw');
 			$this->template->assign_vars([
 				'S_UCP_ELONW'	=> $event['data']['elonw']
 			]);
@@ -128,8 +117,8 @@ class listener implements EventSubscriberInterface
 	/**
 	* Add user's elonw option state into the sql_array
 	*
-	* @param object $event The event object
-	* @return null
+	* @param \phpbb\event\data $event The event object
+	* @return void
 	* @access public
 	*/
 	public function ucp_prefs_set_data($event)

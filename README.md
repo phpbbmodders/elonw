@@ -17,8 +17,8 @@ Opens external links in a new window.
 
 <table>
 <tr>
-<td><a href="docs/images/screenshots/elonw-post-links.png"><img src="docs/images/screenshots/elonw-post-links.png" width="440" alt="An external link in a post with the new-window icon"></a></td>
-<td><a href="docs/images/screenshots/elonw-ucp-setting.png"><img src="docs/images/screenshots/elonw-ucp-setting.png" width="440" alt="The setting in the UCP"></a></td>
+<td><a href="docs/images/screenshots/elonw-post-links.png"><img src="docs/images/screenshots/elonw-post-links.png" width="440" height="46" alt="An external link in a post with the new-window icon"></a></td>
+<td><a href="docs/images/screenshots/elonw-ucp-setting.png"><img src="docs/images/screenshots/elonw-ucp-setting.png" width="440" height="154" alt="The setting in the UCP"></a></td>
 </tr>
 </table>
 

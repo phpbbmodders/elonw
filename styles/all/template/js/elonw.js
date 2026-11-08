@@ -65,11 +65,13 @@
 	 */
 	$(function() {
 
-		// Mark external links in posts and signatures
+		// Mark external links in posts and signatures: an icon and a tooltip
+		// for sighted users, hidden text for screen readers
 		$(externalLinks).each(function() {
 			if ($(this).closest('.content, .signature').length && isExternal(this))
 			{
-				$(this).attr('title', elonw_title).addClass('elonw');
+				$(this).attr('title', elonw_title).addClass('elonw')
+					.append($('<span class="elonw-sr-only"></span>').text(' ' + elonw_title));
 			}
 		});
 

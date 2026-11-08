@@ -1,0 +1,5 @@
+tldts 7.4.19, browser build (dist/index.umd.min.js), unmodified.
+License: MIT, see LICENSE in this folder.
+Package: https://www.npmjs.com/package/tldts/v/7.4.19
+Source and build scripts: https://github.com/remusao/tldts
+Data: Public Suffix List, https://publicsuffix.org/list/

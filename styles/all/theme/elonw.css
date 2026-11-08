@@ -1,4 +1,4 @@
-a.elonw:after {  
+a.elonw:after {
 	font-family: FontAwesome;
 	content: "\f08e";
 	left: 3px;
@@ -7,6 +7,6 @@ a.elonw:after {
 	text-align: center;
 	vertical-align: middle;
 	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;	
+	-moz-osx-font-smoothing: grayscale;
 	pointer-events: none;
 }

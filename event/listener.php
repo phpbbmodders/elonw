@@ -63,10 +63,11 @@ class listener implements EventSubscriberInterface
 		];
 	}
 
-	/* Add the lang vars to the users language
+	/**
+	* Load the extension's language strings
 	*
-	* @param $event			event object
-	* @param return null
+	* @param \phpbb\event\data $event The event object
+	* @return void
 	* @access public
 	*/
 	public function user_setup_after($event)
@@ -74,10 +75,11 @@ class listener implements EventSubscriberInterface
 		$this->language->add_lang('common', 'phpbbmodders/elonw');
 	}
 
-	/* Add the css file
+	/**
+	* Tell the templates whether the user wants external links in a new window
 	*
-	* @param $event			event object
-	* @param return null
+	* @param \phpbb\event\data $event The event object
+	* @return void
 	* @access public
 	*/
 	public function page_header($event)
@@ -90,15 +92,16 @@ class listener implements EventSubscriberInterface
 	/**
 	* Get user's option and display it in UCP Prefs View page
 	*
-	* @param object $event The event object
-	* @return null
+	* @param \phpbb\event\data $event The event object
+	* @return void
 	* @access public
 	*/
 	public function ucp_prefs_get_data($event)
 	{
-		// Request the user option vars and add them to the data array
+		// Request the user option and add it to the data array. The column is
+		// a boolean, so anything other than 0 is stored as 1.
 		$event['data'] = array_merge($event['data'], [
-			'elonw'	=> $this->request->variable('elonw', (int) $this->user->data['user_elonw']),
+			'elonw'	=> $this->request->variable('elonw', (int) $this->user->data['user_elonw']) ? 1 : 0,
 		]);
 
 		// Output the data vars to the template (except on form submit)
@@ -114,8 +117,8 @@ class listener implements EventSubscriberInterface
 	/**
 	* Add user's elonw option state into the sql_array
 	*
-	* @param object $event The event object
-	* @return null
+	* @param \phpbb\event\data $event The event object
+	* @return void
 	* @access public
 	*/
 	public function ucp_prefs_set_data($event)

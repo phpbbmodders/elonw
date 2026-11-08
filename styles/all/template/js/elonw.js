@@ -19,7 +19,10 @@
 	}
 
 	var source = siteHostname(location.hostname);
-	var IgnoreClasses = [
+	var externalLinks = 'a[href^="http://"], a[href^="https://"], a[href^="ftp://"]';
+
+	// Links that other scripts handle (lightboxes, share buttons and the like)
+	var ignoreClasses = [
 		'posterip',
 		'share-button',
 		'fancybox',
@@ -27,48 +30,55 @@
 		'colorbox',
 		'global-button'
 	];
-	var NotInClass = true;
+
+	/**
+	 * Whether a link leads to another site than the board's own.
+	 */
+	function isExternal(link)
+	{
+		return link.hostname && siteHostname(link.hostname) !== source;
+	}
+
+	/**
+	 * Whether a link is driven by a script of its own and must be left alone.
+	 */
+	function isIgnored(link)
+	{
+		if (link.hasAttribute('onclick'))
+		{
+			return true;
+		}
+
+		for (var i = 0; i < ignoreClasses.length; i++)
+		{
+			if ($(link).hasClass(ignoreClasses[i]))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 	/**
 	 * DOM READY
 	 */
 	$(function() {
 
-		$('a[href^="http://"], a[href^="https://"], a[href^="ftp://"]').filter(function(){
-			if ($(this).parents($("div")).is('.content, .signature') && this.hostname && siteHostname(this.hostname) !== source)
+		// Mark external links in posts and signatures
+		$(externalLinks).each(function() {
+			if ($(this).closest('.content, .signature').length && isExternal(this))
 			{
-				$(this).attr("title", elonw_title).addClass("elonw");
+				$(this).attr('title', elonw_title).addClass('elonw');
 			}
 		});
 
-		$(document).on('click',('a[href^="http://"], a[href^="https://"], a[href^="ftp://"]'), function() {
-			if ($(this).attr('class') !== undefined)
+		// Open every external link in a new window
+		$(document).on('click', externalLinks, function() {
+			if (isExternal(this) && !isIgnored(this))
 			{
-				var ClassList = $(this).attr('class').split(/\s+/);
-				$(ClassList).each(function() {
-					if($.inArray(this, IgnoreClasses) !== -1)
-					{
-						NotInClass = false;
-					}
-				});
-			}
-			if ($(this).attr('onclick') !== undefined)
-			{
-				NotInClass = false;
-			}
-			var href = $(this).attr('href');
-			if (this.hostname && siteHostname(this.hostname) !== source && NotInClass)
-			{
-				window.open(href, '_blank', 'noreferrer, noopener');
+				window.open($(this).attr('href'), '_blank', 'noopener,noreferrer');
 				return false;
-			}
-		});
-
-		$('.forum_link').each(function(){
-			var href = $(this).attr('href');
-			if (this.hostname && siteHostname(this.hostname) !== source)
-			{
-				$(this).attr("onclick","window.open(this.href);return false;").attr("rel", "nofollow, noreferrer, noopener");
 			}
 		});
 

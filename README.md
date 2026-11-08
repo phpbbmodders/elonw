@@ -64,4 +64,4 @@ Contributions are welcome!
 
 This extension is licensed under the **GNU General Public License v2.0**.
 
-See [LICENSE.txt](LICENSE.txt) for more information.
+See [license.txt](license.txt) for more information.

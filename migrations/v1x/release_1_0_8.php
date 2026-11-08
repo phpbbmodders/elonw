@@ -18,7 +18,7 @@ class release_1_0_8 extends \phpbb\db\migration\migration
 		return !isset($this->config['elonw_version']);
 	}
 
-	static public function depends_on()
+	public static function depends_on()
 	{
 		return ['\phpbbmodders\elonw\migrations\v1x\release_1_0_1'];
 	}

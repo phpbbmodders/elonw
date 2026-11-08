@@ -18,7 +18,7 @@ class release_1_0_0_data extends \phpbb\db\migration\migration
 		return isset($this->config['elonw_version']) && version_compare($this->config['elonw_version'], '1.0.0', '>=');
 	}
 
-	static public function depends_on()
+	public static function depends_on()
 	{
 		return array('\phpbb\db\migration\data\v310\dev');
 	}

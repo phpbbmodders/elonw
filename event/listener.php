@@ -53,7 +53,7 @@ class listener implements EventSubscriberInterface
 		$this->user = $user;
 	}
 
-	static public function getSubscribedEvents()
+	public static function getSubscribedEvents()
 	{
 		return [
 			'core.user_setup_after'					=>	'user_setup_after',

@@ -72,13 +72,16 @@ class ext extends \phpbb\extension\base
 	}
 
 	/**
-	 * Requires PHP 8.3.36 due to security fixes.
+	 * Require PHP 7.4, the minimum phpBB Modders extensions support.
+	 * Security fixes are not checked by version number: distributions
+	 * backport them without changing it (Ubuntu's patched 8.3.6 and 8.1.2
+	 * report those versions).
 	 *
 	 * @return bool
 	 */
 	public function check_php_version()
 	{
-		return PHP_VERSION_ID >= 80336;
+		return PHP_VERSION_ID >= 70400;
 	}
 
 	/**

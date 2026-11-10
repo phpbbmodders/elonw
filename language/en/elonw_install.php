@@ -19,6 +19,6 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, [
-	'ELONW_NOT_ENABLEABLE'	=> 'External Links Open in New Window could not be enabled. It requires phpBB 3.3.19 or later and PHP 8.3.36 or later.',
+	'ELONW_NOT_ENABLEABLE'	=> 'External Links Open in New Window could not be enabled. It requires phpBB 3.3.19 or later and PHP 8.1 or later.',
 	'ELONW_DISABLE_OLD'		=> 'Disable the old “%s” extension first. Keep its data; do not delete it.',
 ]);
